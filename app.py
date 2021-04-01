@@ -1,11 +1,14 @@
 import numpy as np
+import pickle
 from flask import Flask, request, jsonify, render_template
-import tensorflow as tf
 
 
 app = Flask(__name__)
 
-model = tf.keras.models.load_model('model.h5')
+# model = pickle.load(open('RandomForestClassifier.pkl', 'rb'))
+model = pickle.load(open('finalmodel.pkl', 'rb'))
+
+# model = tf.keras.models.load_model('model.h5')
 
 @app.route('/')
 def home():
@@ -22,6 +25,8 @@ def predict():
     # print(final_features)
     # print(final_features.shape)
 
+    # prediction = model.predict(final_features)
+
     prediction = model.predict_classes(final_features)
     # print(prediction)
 
@@ -32,6 +37,20 @@ def predict():
         output = "Yes"
         return render_template('index.html', prediction_text='{}, Your loan request has been approved by Lending Club!!'.format(output))
 
+    # output = round(prediction[0], 2)
+
+    # return render_template('index.html', prediction_text='{}, Your loan request has been approved by Lending Club!!'.format(output))
+
+@app.route('/predict_api',methods=['POST'])
+def predict_api():
+    '''
+    For direct API calls trought request
+    '''
+    data = request.get_json(force=True)
+    prediction = model.predict([np.array(list(data.values()))])
+
+    output = prediction[0]
+    return jsonify(output)
 
 if __name__ == "__main__":
     app.run(debug=True)
