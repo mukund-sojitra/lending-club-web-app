@@ -1,10 +1,7 @@
-numpy==1.19.5
+numpy>=1.9.2
 flask==1.1.2
 requests==2.25.1
 itsdangerous==1.1.0
-jinja2==2.11.3
-keras==2.4.3
-markupsafe==1.1.1
-Werkzeug==0.15.5
 gunicorn==19.9.0
-itsdangerous==1.1.0
+tensorflow>=2.4.0
+keras>=2.4.1
