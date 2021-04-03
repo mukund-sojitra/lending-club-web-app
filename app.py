@@ -6,7 +6,7 @@ from flask import Flask, request, jsonify, render_template
 app = Flask(__name__)
 
 # model = pickle.load(open('RandomForestClassifier.pkl', 'rb'))
-model = pickle.load(open('finalmodel.pkl', 'rb'))
+model = pickle.load(open('RFC_BSCV.pkl', 'rb'))
 
 # model = tf.keras.models.load_model('model.h5')
 
@@ -25,9 +25,9 @@ def predict():
     # print(final_features)
     # print(final_features.shape)
 
-    # prediction = model.predict(final_features)
+    prediction = model.predict(final_features)
 
-    prediction = model.predict_classes(final_features)
+    # prediction = model.predict_classes(final_features)
     # print(prediction)
 
     if int(prediction) == 0:
