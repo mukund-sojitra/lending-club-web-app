@@ -1,14 +1,26 @@
 import numpy as np
-from flask import Flask, request, jsonify, render_template
 import pickle
-from tensorflow.keras.models import load_model
+from flask import Flask, request, jsonify, render_template
+
 
 app = Flask(__name__)
 
-# model = pickle.load(open('RandomForestClassifier.pkl', 'rb'))
-# model = pickle.load(open('logisticregression.pkl', 'rb'))
 
-model = load_model('model.h5')
+
+def load_document(file_path):
+    from class_def import Document
+
+    model = pickle.load(open('finalmodel.pkl', 'rb'))
+    return model
+
+
+
+
+
+# model = pickle.load(open('RandomForestClassifier.pkl', 'rb'))
+# model = pickle.load(open('finalmodel.pkl', 'rb'))
+
+# model = tf.keras.models.load_model('model.h5')
 
 @app.route('/')
 def home():
