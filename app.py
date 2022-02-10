@@ -1,26 +1,13 @@
 import numpy as np
 import pickle
 from flask import Flask, request, jsonify, render_template
+import skopt
 
 
 app = Flask(__name__)
 
-
-
-def load_document(file_path):
-    from class_def import Document
-
-    model = pickle.load(open('finalmodel.pkl', 'rb'))
-    return model
-
-
-
-
-
 # model = pickle.load(open('RandomForestClassifier.pkl', 'rb'))
-# model = pickle.load(open('finalmodel.pkl', 'rb'))
-
-# model = tf.keras.models.load_model('model.h5')
+model = pickle.load(open('RFC_BSCV.pkl', 'rb'))
 
 @app.route('/')
 def home():
@@ -37,9 +24,9 @@ def predict():
     # print(final_features)
     # print(final_features.shape)
 
-    # prediction = model.predict(final_features)
+    prediction = model.predict(final_features)
 
-    prediction = model.predict_classes(final_features)
+    # prediction = model.predict_classes(final_features)
     # print(prediction)
 
     if int(prediction) == 0:
